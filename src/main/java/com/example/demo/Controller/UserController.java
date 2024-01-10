@@ -30,6 +30,6 @@ public class UserController {
     }
 
     private Boolean checkPasswordLength(String password){
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 }

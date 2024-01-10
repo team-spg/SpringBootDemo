@@ -1,11 +1,13 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Entity.Employee;
+import com.example.demo.Security.SecurityUtils;
 import com.example.demo.Service.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -37,6 +39,7 @@ public class EmployeeController {
 
     @GetMapping("/employee")
     public ResponseEntity<?> getAll(){
+        Optional<String> optional = SecurityUtils.getCurrentUserName();
         List<Employee> list = employeeService.findAll();
         return ResponseEntity.ok(list);
     }

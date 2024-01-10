@@ -1,9 +1,11 @@
 package com.example.demo.Entity;
 
+import com.example.demo.Enumeration.Status;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -17,13 +19,16 @@ public class User implements Serializable {
     private String userName;
     private String password;
     private String email;
-    @ManyToMany
+    private String firstName;
+    private String lastName;
+    private Status status;
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_name", referencedColumnName = "name")}
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -63,5 +68,29 @@ public class User implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
